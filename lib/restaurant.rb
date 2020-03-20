@@ -24,7 +24,7 @@ attr_reader :opening_time, :name, :dishes
     @dishes.map do |dish|
       dish.upcase
     end
-    
+
     # LONG VERSION WITH EACH:
     # excited_dishes = []
     # @dishes.each do |dish|
@@ -36,13 +36,20 @@ attr_reader :opening_time, :name, :dishes
     # OR @dishes.map(&:upcase)
   end
 
-  def announce_closing_time(hours_open)
-    time = @opening_time.to_i + hours_open
-    if time < 12
-      return "#{@name} will be closing at #{time}:00AM"
+  def announce_closing_time(hours)
+    if closing_time(hours).to_i > 12
+      clock_time = (closing_time(hours).to_i - 12 ).to_s + ":00PM"
     else
-      pm_hours = time.to_i - 12
-      return "#{@name} will be closing at #{pm_hours.to_s}:00PM"
+      clock_time = closing_time(hours) + "AM"
     end
+    "#{name} will be closing at #{clock_time}"
   end
+    # CODE BEFORE REFACTORING TO UTILIZE PRIOR METHOD:
+    # time = @opening_time.to_i + hours
+    # if time < 12
+    #   return "#{@name} will be closing at #{time}:00AM"
+    # else
+    #   pm_hours = time.to_i - 12
+    #   return "#{@name} will be closing at #{pm_hours.to_s}:00PM"
+
 end
