@@ -21,11 +21,19 @@ attr_reader :opening_time, :name, :dishes
   end
 
   def menu_dish_names
-    excited_dishes = []
-    @dishes.each do |dish|
-      excited_dishes << dish.upcase
+    @dishes.map do |dish|
+      dish.upcase
     end
-    excited_dishes
+    
+    # LONG VERSION WITH EACH:
+    # excited_dishes = []
+    # @dishes.each do |dish|
+    #   excited_dishes << dish.upcase
+    # end
+    # excited_dishes
+
+    # OR @dishes.map { |dish| dish.upcase }
+    # OR @dishes.map(&:upcase)
   end
 
   def announce_closing_time(hours_open)
