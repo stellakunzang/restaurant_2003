@@ -8,16 +8,16 @@ attr_reader :opening_time, :name, :dishes
   end
 
   def closing_time(hours_open)
-    integer_hours = @opening_time.to_i + hours_open
-    "#{integer_hours.to_s}:00"
+    (@opening_time.to_i + hours_open).to_s + ":00"
   end
 
   def add_dish(dish_name)
     @dishes << dish_name
   end
 
-  def open_for_lunch
-    true if @opening_time.to_i < 12
+  def open_for_lunch?
+    return true if @opening_time.to_i < 12
+    false
   end
 
   def menu_dish_names
