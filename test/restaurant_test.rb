@@ -1,6 +1,6 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require '../lib/restaurant'
+require './lib/restaurant'
 require 'pry'
 
 class RestaurantTest < Minitest::Test
@@ -49,14 +49,12 @@ class RestaurantTest < Minitest::Test
     assert_equal ['Burrata', 'Pizzetta', 'Ravioli'], restaurant.dishes
   end
 
-  def test_it_can_open_for_lunch
+  def test_it_can_open_and_close_for_lunch
     restaurant1 = Restaurant.new('10:00', 'Fuel Cafe')
-    assert restaurant1.open_for_lunch
-  end
-
-  def test_it_can_close_for_lunch
     restaurant2 = Restaurant.new('16:00', 'Il Posto')
-    refute restaurant2.open_for_lunch
+
+    assert_equal true, restaurant1.open_for_lunch?
+    assert_equal false, restaurant2.open_for_lunch?
   end
 
   def test_it_can_be_excited_about_menu_dish_names
@@ -69,13 +67,11 @@ class RestaurantTest < Minitest::Test
     assert_equal ["BURRATA", "PIZZETTA", "RAVIOLI"], restaurant.menu_dish_names
   end
 
-  def test_it_can_accounce_closing_time_24_hour_clock
+  def test_it_can_accounce_closing_time
     restaurant1 = Restaurant.new('6:00', 'Fuel Cafe')
-    assert_equal "Fuel Cafe will be closing at 11:00AM", restaurant1.announce_closing_time(5)
-  end
-
-  def test_it_can_accounce_closing_time_12_hour_clock
     restaurant2 = Restaurant.new('16:00', 'Il Posto')
+    assert_equal "Fuel Cafe will be closing at 11:00AM", restaurant1.announce_closing_time(5)
     assert_equal "Il Posto will be closing at 11:00PM", restaurant2.announce_closing_time(7)
   end
+
 end
